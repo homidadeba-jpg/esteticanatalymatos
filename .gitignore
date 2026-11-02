@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.codex-remote-attachments/
+artifacts/
+*-source.html
+agenda-data.json
+*.log
+.vercel/

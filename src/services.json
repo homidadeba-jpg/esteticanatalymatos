@@ -1,0 +1,92 @@
+[
+  {
+    "id": "076b9e50-9402-482c-b0b3-c8e378fb61ee",
+    "name": "Avaliação",
+    "minutes": 30
+  },
+  {
+    "id": "2ddaa6e6-7d81-425c-a89c-ad6734daa2dd",
+    "name": "Dermaplaning",
+    "minutes": 60
+  },
+  {
+    "id": "42833e29-9439-4b30-b90b-ffb67f19d892",
+    "name": "Drenagem Linfática",
+    "minutes": 60
+  },
+  {
+    "id": "bdd4015e-0150-416d-950c-66984f4c76b2",
+    "name": "Jato de Plasma",
+    "minutes": 90
+  },
+  {
+    "id": "f716b64b-7f21-4f5f-8047-57af20381aa8",
+    "name": "Limpeza de Pele",
+    "minutes": 90
+  },
+  {
+    "id": "32098d4f-275b-417a-86d0-7f8548b2e7f5",
+    "name": "Lipo de papada enzimática",
+    "minutes": 60
+  },
+  {
+    "id": "870bb74e-bd56-446c-8e34-e9c81ab66528",
+    "name": "Lipo sem cortes",
+    "minutes": 90
+  },
+  {
+    "id": "39823e7a-a7b2-4deb-8be9-b77bd89adae1",
+    "name": "Lobuloplastia sem corte",
+    "minutes": 60
+  },
+  {
+    "id": "0963c8e8-20eb-4e5b-8f44-0ca5073876c7",
+    "name": "Massagem Relaxante",
+    "minutes": 60
+  },
+  {
+    "id": "44d2949b-290b-4d67-b146-a7b2e2de67de",
+    "name": "Microagulhamento Capilar",
+    "minutes": 60
+  },
+  {
+    "id": "3c289bba-1f01-4c84-a8a0-573283e05f8a",
+    "name": "Microagulhamento Facial",
+    "minutes": 60
+  },
+  {
+    "id": "d85957aa-1df8-4775-aa18-3ad5de8e5844",
+    "name": "Pacote pós férias renew",
+    "minutes": 90
+  },
+  {
+    "id": "d193911e-b269-47af-90ee-14888e05f9ee",
+    "name": "Pacote - Pós Operatório de Cirurgias",
+    "minutes": 90
+  },
+  {
+    "id": "e56899a0-8cfa-46b8-a190-a9a7c60ffd52",
+    "name": "Pacote - Redução de Medidas",
+    "minutes": 90
+  },
+  {
+    "id": "1993c6f9-7b30-409f-8032-1674e7603c8d",
+    "name": "Peeling clareador corporal",
+    "minutes": 60
+  },
+  {
+    "id": "0d20c42c-28c9-4d92-8af0-f6f74a8b34e2",
+    "name": "Pump de Glúteo",
+    "minutes": 60
+  },
+  {
+    "id": "5e112d5d-2dea-4cf8-b7a9-f98f71557b58",
+    "name": "Remoção de Verruga",
+    "minutes": 60
+  },
+  {
+    "id": "ef484c75-627f-421d-b670-17bcd6b80669",
+    "name": "Secagem de vasinhos",
+    "minutes": 40
+  }
+]
