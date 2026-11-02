@@ -13,8 +13,19 @@ O agendamento aponta para o perfil da Nataly no Tua Agenda. Os 18 procedimentos 
 
 Fontes: https://bio.site/EsteticaNatalymatos e https://tuaagenda.app/c/Studiobellas1 . Contato confirmado: (11) 98441-8691. Endereço: Rua Tupinambás, 678, sala 9, Conceição, Diadema/SP.
 
-Capa de atendimento recuperada do bio.site. O retrato de fundo marrom foi excluído a pedido do usuário; a apresentação usa a foto original enviada, exportada em WebP com nome versionado pelo conteúdo. O hero usa um recorte transparente da foto enviada pelo usuário, preparado com a ferramenta integrada de imagens e exportado em WebP. Prompt: remover somente fundo, planta e cadeira; preservar identidade, rosto, expressão, cabelo, mãos, joias, roupa, pose e iluminação; manter transparência real. Arquivo usado: `public/images/nataly-hero.webp`. Fotos de referência enviadas são preservadas na pasta de anexos.
+Capa de atendimento recuperada do bio.site e foto original de Nataly enviada pelo usuário. A foto da Nataly aparece somente no hero, com o fundo original, enquadramento em arco e textos em uma área separada. O retrato de fundo marrom não é usado. O recorte antigo foi preservado apenas em `assets/reference`, fora da publicação.
+
+O catálogo foi reconferido na agenda em 01/11/2026: os 18 serviços da Nataly aparecem por padrão na aba Todos, com nomes completos e filtros por categoria. Outros profissionais do Studio Bellas não entram nessa relação.
+
+São seis fotos únicas: retrato, capa original e quatro fotografias ilustrativas obtidas no Pexels e hospedadas localmente em WebP. As fotos ilustrativas não representam clientes ou atendimentos da Nataly. Fontes e [licença Pexels](https://www.pexels.com/license/):
+
+- Facial: [Anna Shvets, foto 5069493](https://www.pexels.com/photo/crop-beautician-massaging-client-face-with-lotion-during-spa-procedures-5069493/).
+- Corporal: [Anna Tarazevich, foto 6560265](https://www.pexels.com/photo/a-beautiful-woman-having-a-back-massage-6560265/).
+- Pele: [Pavel Danilyuk, foto 6417954](https://www.pexels.com/photo/person-woman-hand-face-6417954/).
+- Frascos: [foto 6621462](https://www.pexels.com/photo/6621462/).
+
+As URLs dos novos arquivos têm os oito primeiros caracteres de SHA-256 no nome. Os anexos originais foram preservados.
 
 Layout claro e editorial conforme referência. Navegação por teclado, abas acessíveis, acordeões animados, redução de movimento e feedback imediato nos links de WhatsApp. A abertura dos links continua nativa, sem atraso de redirecionamento.
 
-`npm run check` verifica a página por Playwright em desktop e mobile, testa abas, menu, acordeão, links e redução de movimento e salva capturas em `artifacts/`.
+`npm run check` verifica a página por Playwright em desktop e mobile, os 18 serviços, ausência de fotos repetidas e de sobreposição entre título e foto, abas, menu, acordeão, links e redução de movimento. Salva capturas em `artifacts/`.

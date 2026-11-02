@@ -4,33 +4,42 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
-const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4173'], { stdio: 'ignore' });
+const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4189', '--strictPort'], { stdio: 'ignore' });
 let browser;
 const findings = [];
 try {
   let ready = false;
   for (let n = 0; n < 40; n++) {
-    try { if ((await fetch('http://127.0.0.1:4173')).ok) { ready = true; break; } } catch {}
+    try { if ((await fetch('http://127.0.0.1:4189')).ok) { ready = true; break; } } catch {}
     await new Promise(r => setTimeout(r, 250));
   }
   assert(ready, 'Preview server started');
   const executablePath = existsSync('C:/Program Files/Google/Chrome/Application/chrome.exe') ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : undefined;
   browser = await chromium.launch({ headless: true, executablePath });
   await mkdir('artifacts', { recursive: true });
-  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 768, height: 1024 }, { width: 320, height: 740 }]) {
+  const viewports = [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 768, height: 1024 }, { width: 320, height: 740 }];
+  const widths = process.env.CHECK_WIDTHS?.split(',').map(Number);
+  for (const viewport of viewports.filter(v => !widths || widths.includes(v.width))) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));
     page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
-    await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle' });
+    await page.goto('http://127.0.0.1:4189', { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1300);
     assert.equal(await page.locator('h1').count(), 1);
-    const portrait = await page.locator('.hero-portrait').boundingBox();
-    const portraitArea = await page.locator('.hero-art').boundingBox();
-    assert(Math.abs(portrait.width - portrait.height) < 2, 'Portrait proportions preserved');
-    assert(portrait.y >= portraitArea.y - 10, 'Portrait head remains in the image area');
+    const photo = await page.locator('.hero-photo-frame').boundingBox();
+    const title = await page.locator('h1').boundingBox();
+    const fontSize = await page.locator('h1').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+    assert(title.height <= fontSize * 2.1, 'Hero headline fits on two lines');
+    const overlap = title.x < photo.x + photo.width && title.x + title.width > photo.x && title.y < photo.y + photo.height && title.y + title.height > photo.y;
+    assert(!overlap, 'Hero title stays outside the photograph');
+    assert.equal(await page.locator('.brand-monogram,.hero-watermark').count(), 0, 'No initials or words over the hero');
+    const imageSources = await page.locator('main img').evaluateAll(imgs => imgs.map(i => i.getAttribute('src')));
+    assert.equal(imageSources.length, 6, 'Six photographs across the page');
+    assert.equal(new Set(imageSources).size, 6, 'Every photograph is unique');
+    assert.equal(await page.locator('.treatment-item').count(), 18, 'All 18 services appear by default');
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${viewport.width}px`);
     const heroButton = page.locator('.hero .button');
     assert(await heroButton.isVisible());
@@ -43,7 +52,7 @@ try {
       for (const name of await page.locator('.treatment-item h3').allTextContents()) names.add(name);
     }
     assert.equal(names.size, 18, 'All 18 Nataly services are reachable');
-    await page.getByRole('tab', { name: 'Faciais', exact: true }).click();
+    await page.getByRole('tab', { name: 'Todos', exact: true }).click();
     const question = page.getByRole('button', { name: 'Por onde eu começo?' });
     await question.click();
     await page.waitForTimeout(400);
@@ -79,12 +88,12 @@ try {
     assert.deepEqual(errors, [], 'No browser errors');
     await page.screenshot({ path: `artifacts/page-${viewport.width}.png`, fullPage: true });
     if (viewport.width === 1440) await page.screenshot({ path: 'artifacts/hero-desktop.png' });
-    findings.push(`${viewport.width}px: layout, hero, 18 services, FAQ, WhatsApp, images OK`);
+    findings.push(`${viewport.width}px: hero without overlap, 6 unique photos, all 18 services, FAQ and WhatsApp OK`);
     await context.close();
   }
   const reduce = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const page = await reduce.newPage();
-  await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle' });
+  await page.goto('http://127.0.0.1:4189', { waitUntil: 'networkidle' });
   assert(await page.locator('h1').isVisible());
   assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
   findings.push('Reduced motion: content visible, smooth scrolling disabled');
