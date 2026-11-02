@@ -1,6 +1,6 @@
 # Auditoria da interface e revisão aplicada
 
-Base: implementação e capturas do commit `87f7a1b`, comparadas ao pedido do usuário. A identidade clara, as fontes Cormorant Garamond/Manrope e os dados da Nataly foram preservados.
+Base: implementação e capturas do commit `87f7a1b`, comparadas ao pedido do usuário. A identidade clara e os dados da Nataly foram preservados. A revisão atual adota Bodoni Moda e DM Sans para uma tipografia mais marcada.
 
 ## Problemas encontrados
 
@@ -14,7 +14,7 @@ Base: implementação e capturas do commit `87f7a1b`, comparadas ao pedido do us
 
 ## Organização final
 
-Hero com foto sem fundo; catálogo fotográfico completo; apresentação da profissional com registro real; contato, endereço e duas dúvidas úteis. Os 18 procedimentos continuam disponíveis na opção Todos e nas categorias. Nenhum serviço de outro profissional foi incluído.
+Hero com uma única foto sem fundo no centro, título e textos distribuídos no mesmo espaço, sem colunas de texto/foto. A tipografia agora combina Bodoni Moda e DM Sans. A apresentação da Nataly aparece antes do catálogo, e a seção sobre avaliação explica o atendimento, equilibrando os serviços com informações úteis. Contato, endereço e duas dúvidas completam a página. Os 18 procedimentos continuam disponíveis na opção Todos e nas categorias, cada um com sua miniatura.
 
 ## Integridade e acessibilidade
 

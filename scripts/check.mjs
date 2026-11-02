@@ -36,14 +36,21 @@ try {
     const photo = await page.locator('.hero-portrait').boundingBox();
     const title = await page.locator('h1').boundingBox();
     const fontSize = await page.locator('h1').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-    assert(title.height <= fontSize * 2.2, 'Hero headline fits on two lines');
+    assert(title.height <= fontSize * 2.5, 'Hero headline fits on two lines');
     assert(await page.locator('.hero-line').last().evaluate(el => { const range = document.createRange(); range.selectNodeContents(el.querySelector('em')); return range.getBoundingClientRect().width <= el.clientWidth + 1; }), 'Hero text is not clipped');
-    const overlap = title.x < photo.x + photo.width && title.x + title.width > photo.x && title.y < photo.y + photo.height && title.y + title.height > photo.y;
-    assert(!overlap, 'Hero title stays outside the photograph');
+    const face = { x: photo.x + photo.width * .34, y: photo.y + photo.height * .12, width: photo.width * .38, height: photo.height * .4 };
+    const overlapsFace = r => r.x < face.x + face.width && r.x + r.width > face.x && r.y < face.y + face.height && r.y + r.height > face.y;
+    assert(!overlapsFace(title), 'Headline stays outside Nataly face');
+    assert(!overlapsFace(await page.locator('.hero-note').boundingBox()), 'Supporting copy stays outside the face');
+    assert.equal(await page.locator('.hero-inner').evaluate(el => getComputedStyle(el).display), 'block', 'Hero is a single composition, without a column grid');
+    const primaryAction = await page.locator('.hero .button').boundingBox();
+    assert(primaryAction.y >= 0 && primaryAction.y + primaryAction.height < viewport.height, 'Hero booking is in the initial viewport');
+    assert((await page.locator('.about-copy').textContent()).includes('esteticista em Diadema'));
+    assert((await page.locator('.care-copy').textContent()).includes('avaliação'));
     assert.equal(await page.locator('.brand-monogram,.hero-watermark').count(), 0, 'No initials or words over the hero');
     const imageSources = await page.locator('main img').evaluateAll(imgs => imgs.map(i => i.getAttribute('src')));
-    assert.equal(imageSources.length, 20, 'Hero, eighteen thumbnails and one real attendance photo');
-    assert.equal(new Set(imageSources).size, 20, 'Every photograph is unique');
+    assert.equal(imageSources.length, 21, 'One hero, eighteen thumbnails and two contextual photos');
+    assert.equal(new Set(imageSources).size, 21, 'Every photograph is unique');
     assert.equal(await page.locator('.service-card img').count(), 18, 'Every service has its own thumbnail');
     const firstService = page.locator('.service-card').first();
     await firstService.locator('button').click();
@@ -100,8 +107,9 @@ try {
     assert.deepEqual(broken, [], 'Images load');
     assert.deepEqual(errors, [], 'No browser errors');
     await page.screenshot({ path: `artifacts/page-${viewport.width}.png`, fullPage: true });
+    await page.screenshot({ path: `artifacts/hero-${viewport.width}.png` });
     if (viewport.width === 1440) await page.screenshot({ path: 'artifacts/hero-desktop.png' });
-    findings.push(`${viewport.width}px: hero without overlap, transparent hero, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
+    findings.push(`${viewport.width}px: integrated hero, new fonts, face without text overlap, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
     await context.close();
   }
   const reduce = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });

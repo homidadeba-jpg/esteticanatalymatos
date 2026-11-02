@@ -1,6 +1,6 @@
 # Nataly Matos · Estética Avançada
 
-Landing page em React/Vite, com GSAP e fontes locais Cormorant Garamond e Manrope.
+Landing page em React/Vite, com GSAP e fontes locais Bodoni Moda e DM Sans.
 
 ```sh
 npm install
@@ -17,7 +17,7 @@ Capa de atendimento recuperada do bio.site e foto original de Nataly enviada pel
 
 O catálogo foi reconferido na agenda em 01/11/2026: os 18 serviços da Nataly aparecem por padrão na aba Todos, com nomes completos e filtros por categoria. Outros profissionais do Studio Bellas não entram nessa relação.
 
-Revisão atual: hero com o recorte transparente da foto da Nataly, animação GSAP coordenada e profundidade no fundo. São 18 miniaturas individuais obtidas na agenda oficial, com fontes registradas em `src/services.json`. As descrições abrem ao toque; não há exclusão de serviços. A auditoria e os cortes de conteúdo estão em [AUDIT.md](AUDIT.md).
+Revisão atual: hero editorial em uma composição única: retrato transparente central, título e textos em posições independentes, Bodoni Moda nos títulos e DM Sans nos textos. GSAP coordena a entrada e a profundidade no scroll. São 18 miniaturas individuais obtidas na agenda oficial, com fontes registradas em `src/services.json`. As descrições abrem ao toque; não há exclusão de serviços. A auditoria e os cortes de conteúdo estão em [AUDIT.md](AUDIT.md).
 
 Fotografias ilustrativas pesquisadas na revisão anterior foram preservadas como recursos, mas não são exibidas no layout atual. Fontes e [licença Pexels](https://www.pexels.com/license/):
 
