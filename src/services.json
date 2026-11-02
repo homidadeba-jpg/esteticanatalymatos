@@ -2,91 +2,127 @@
   {
     "id": "076b9e50-9402-482c-b0b3-c8e378fb61ee",
     "name": "Avaliação",
-    "minutes": 30
+    "minutes": 30,
+    "image": "/images/services/076b9e50-5ab015f0.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/076b9e50-9402-482c-b0b3-c8e378fb61ee_251022193013.jpg"
   },
   {
     "id": "2ddaa6e6-7d81-425c-a89c-ad6734daa2dd",
     "name": "Dermaplaning",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/2ddaa6e6-e1684b18.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/2ddaa6e6-7d81-425c-a89c-ad6734daa2dd_251004110210.jpg"
   },
   {
     "id": "42833e29-9439-4b30-b90b-ffb67f19d892",
     "name": "Drenagem Linfática",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/42833e29-f7897302.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/42833e29-9439-4b30-b90b-ffb67f19d892_251005094746.jpg"
   },
   {
     "id": "bdd4015e-0150-416d-950c-66984f4c76b2",
     "name": "Jato de Plasma",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/bdd4015e-c53e6db4.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/bdd4015e-0150-416d-950c-66984f4c76b2_251004154025.jpg"
   },
   {
     "id": "f716b64b-7f21-4f5f-8047-57af20381aa8",
     "name": "Limpeza de Pele",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/f716b64b-63ce54d4.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/f716b64b-7f21-4f5f-8047-57af20381aa8_251004105936.jpg"
   },
   {
     "id": "32098d4f-275b-417a-86d0-7f8548b2e7f5",
     "name": "Lipo de papada enzimática",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/32098d4f-d1421750.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/32098d4f-275b-417a-86d0-7f8548b2e7f5_260311084956.jpg"
   },
   {
     "id": "870bb74e-bd56-446c-8e34-e9c81ab66528",
     "name": "Lipo sem cortes",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/870bb74e-2097a4bb.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/870bb74e-bd56-446c-8e34-e9c81ab66528_251017204534.jpg"
   },
   {
     "id": "39823e7a-a7b2-4deb-8be9-b77bd89adae1",
     "name": "Lobuloplastia sem corte",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/39823e7a-8aae26ef.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/39823e7a-a7b2-4deb-8be9-b77bd89adae1_260311084813.jpg"
   },
   {
     "id": "0963c8e8-20eb-4e5b-8f44-0ca5073876c7",
     "name": "Massagem Relaxante",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/0963c8e8-e2709cce.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/0963c8e8-20eb-4e5b-8f44-0ca5073876c7_251004110703.jpg"
   },
   {
     "id": "44d2949b-290b-4d67-b146-a7b2e2de67de",
     "name": "Microagulhamento Capilar",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/44d2949b-68b2a259.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/44d2949b-290b-4d67-b146-a7b2e2de67de_251006173747.jpg"
   },
   {
     "id": "3c289bba-1f01-4c84-a8a0-573283e05f8a",
     "name": "Microagulhamento Facial",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/3c289bba-6ee941e3.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/3c289bba-1f01-4c84-a8a0-573283e05f8a_251006173504.jpg"
   },
   {
     "id": "d85957aa-1df8-4775-aa18-3ad5de8e5844",
     "name": "Pacote pós férias renew",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/d85957aa-a5f2505c.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/d85957aa-1df8-4775-aa18-3ad5de8e5844_260107003842.jpg"
   },
   {
     "id": "d193911e-b269-47af-90ee-14888e05f9ee",
     "name": "Pacote - Pós Operatório de Cirurgias",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/d193911e-e2e546e4.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/d193911e-b269-47af-90ee-14888e05f9ee_251005093452.jpg"
   },
   {
     "id": "e56899a0-8cfa-46b8-a190-a9a7c60ffd52",
     "name": "Pacote - Redução de Medidas",
-    "minutes": 90
+    "minutes": 90,
+    "image": "/images/services/e56899a0-99a17507.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/e56899a0-8cfa-46b8-a190-a9a7c60ffd52_251005094144.jpg"
   },
   {
     "id": "1993c6f9-7b30-409f-8032-1674e7603c8d",
     "name": "Peeling clareador corporal",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/1993c6f9-507c2e80.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/1993c6f9-7b30-409f-8032-1674e7603c8d_251102172142.jpg"
   },
   {
     "id": "0d20c42c-28c9-4d92-8af0-f6f74a8b34e2",
     "name": "Pump de Glúteo",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/0d20c42c-778991f1.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/0d20c42c-28c9-4d92-8af0-f6f74a8b34e2_260311085334.jpg"
   },
   {
     "id": "5e112d5d-2dea-4cf8-b7a9-f98f71557b58",
     "name": "Remoção de Verruga",
-    "minutes": 60
+    "minutes": 60,
+    "image": "/images/services/5e112d5d-13695bda.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/5e112d5d-2dea-4cf8-b7a9-f98f71557b58_251004130847.jpg"
   },
   {
     "id": "ef484c75-627f-421d-b670-17bcd6b80669",
     "name": "Secagem de vasinhos",
-    "minutes": 40
+    "minutes": 40,
+    "image": "/images/services/ef484c75-aa32c564.webp",
+    "sourceImage": "https://d2z5v7bcxwpta9.cloudfront.net/301450/PRODUTO/ef484c75-627f-421d-b670-17bcd6b80669_260311085037.jpg"
   }
 ]

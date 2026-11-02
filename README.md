@@ -13,11 +13,13 @@ O agendamento aponta para o perfil da Nataly no Tua Agenda. Os 18 procedimentos 
 
 Fontes: https://bio.site/EsteticaNatalymatos e https://tuaagenda.app/c/Studiobellas1 . Contato confirmado: (11) 98441-8691. Endereço: Rua Tupinambás, 678, sala 9, Conceição, Diadema/SP.
 
-Capa de atendimento recuperada do bio.site e foto original de Nataly enviada pelo usuário. A foto da Nataly aparece somente no hero, com o fundo original, enquadramento em arco e textos em uma área separada. O retrato de fundo marrom não é usado. O recorte antigo foi preservado apenas em `assets/reference`, fora da publicação.
+Capa de atendimento recuperada do bio.site e foto original de Nataly enviada pelo usuário. A foto da Nataly aparece somente no hero, em um recorte transparente com fundo em camadas e textos em uma área separada. O retrato de fundo marrom não é usado. O original do recorte foi preservado em `assets/reference`, e sua exportação WebP com transparência é usada na publicação.
 
 O catálogo foi reconferido na agenda em 01/11/2026: os 18 serviços da Nataly aparecem por padrão na aba Todos, com nomes completos e filtros por categoria. Outros profissionais do Studio Bellas não entram nessa relação.
 
-São seis fotos únicas: retrato, capa original e quatro fotografias ilustrativas obtidas no Pexels e hospedadas localmente em WebP. As fotos ilustrativas não representam clientes ou atendimentos da Nataly. Fontes e [licença Pexels](https://www.pexels.com/license/):
+Revisão atual: hero com o recorte transparente da foto da Nataly, animação GSAP coordenada e profundidade no fundo. São 18 miniaturas individuais obtidas na agenda oficial, com fontes registradas em `src/services.json`. As descrições abrem ao toque; não há exclusão de serviços. A auditoria e os cortes de conteúdo estão em [AUDIT.md](AUDIT.md).
+
+Fotografias ilustrativas pesquisadas na revisão anterior foram preservadas como recursos, mas não são exibidas no layout atual. Fontes e [licença Pexels](https://www.pexels.com/license/):
 
 - Facial: [Anna Shvets, foto 5069493](https://www.pexels.com/photo/crop-beautician-massaging-client-face-with-lotion-during-spa-procedures-5069493/).
 - Corporal: [Anna Tarazevich, foto 6560265](https://www.pexels.com/photo/a-beautiful-woman-having-a-back-massage-6560265/).
@@ -28,4 +30,4 @@ As URLs dos novos arquivos têm os oito primeiros caracteres de SHA-256 no nome.
 
 Layout claro e editorial conforme referência. Navegação por teclado, abas acessíveis, acordeões animados, redução de movimento e feedback imediato nos links de WhatsApp. A abertura dos links continua nativa, sem atraso de redirecionamento.
 
-`npm run check` verifica a página por Playwright em desktop e mobile, os 18 serviços, ausência de fotos repetidas e de sobreposição entre título e foto, abas, menu, acordeão, links e redução de movimento. Salva capturas em `artifacts/`.
+`npm run check` verifica por Playwright o hero com recorte transparente, as 18 miniaturas individuais, os detalhes dos serviços, ausência de sobreposição no título, abas, menu, dúvidas, links e redução de movimento. Salva capturas em `artifacts/`.

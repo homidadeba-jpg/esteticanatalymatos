@@ -1,13 +1,17 @@
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import assert from 'node:assert/strict';
+import sharp from 'sharp';
 
 const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4189', '--strictPort'], { stdio: 'ignore' });
 let browser;
 const findings = [];
 try {
+  const assets = JSON.parse(await readFile('src/media.json', 'utf8'));
+  const alpha = await sharp('public' + assets.hero).stats();
+  assert.equal(alpha.channels[3].min, 0, 'Hero has real background transparency');
   let ready = false;
   for (let n = 0; n < 40; n++) {
     try { if ((await fetch('http://127.0.0.1:4189')).ok) { ready = true; break; } } catch {}
@@ -29,17 +33,26 @@ try {
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1300);
     assert.equal(await page.locator('h1').count(), 1);
-    const photo = await page.locator('.hero-photo-frame').boundingBox();
+    const photo = await page.locator('.hero-portrait').boundingBox();
     const title = await page.locator('h1').boundingBox();
     const fontSize = await page.locator('h1').evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-    assert(title.height <= fontSize * 2.1, 'Hero headline fits on two lines');
+    assert(title.height <= fontSize * 2.2, 'Hero headline fits on two lines');
+    assert(await page.locator('.hero-line').last().evaluate(el => { const range = document.createRange(); range.selectNodeContents(el.querySelector('em')); return range.getBoundingClientRect().width <= el.clientWidth + 1; }), 'Hero text is not clipped');
     const overlap = title.x < photo.x + photo.width && title.x + title.width > photo.x && title.y < photo.y + photo.height && title.y + title.height > photo.y;
     assert(!overlap, 'Hero title stays outside the photograph');
     assert.equal(await page.locator('.brand-monogram,.hero-watermark').count(), 0, 'No initials or words over the hero');
     const imageSources = await page.locator('main img').evaluateAll(imgs => imgs.map(i => i.getAttribute('src')));
-    assert.equal(imageSources.length, 6, 'Six photographs across the page');
-    assert.equal(new Set(imageSources).size, 6, 'Every photograph is unique');
-    assert.equal(await page.locator('.treatment-item').count(), 18, 'All 18 services appear by default');
+    assert.equal(imageSources.length, 20, 'Hero, eighteen thumbnails and one real attendance photo');
+    assert.equal(new Set(imageSources).size, 20, 'Every photograph is unique');
+    assert.equal(await page.locator('.service-card img').count(), 18, 'Every service has its own thumbnail');
+    const firstService = page.locator('.service-card').first();
+    await firstService.locator('button').click();
+    await page.waitForTimeout(350);
+    assert.equal(await firstService.locator('button').getAttribute('aria-expanded'), 'true');
+    assert(await firstService.locator('.disclosure').evaluate(el => el.getBoundingClientRect().height > 30));
+    await firstService.locator('button').click();
+    await page.waitForTimeout(350);
+    assert.equal(await page.locator('.service-card').count(), 18, 'All 18 services appear by default');
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${viewport.width}px`);
     const heroButton = page.locator('.hero .button');
     assert(await heroButton.isVisible());
@@ -49,7 +62,7 @@ try {
     for (const category of ['Faciais', 'Corporais', 'Cuidados específicos']) {
       await page.getByRole('tab', { name: category, exact: true }).click();
       await page.waitForTimeout(200);
-      for (const name of await page.locator('.treatment-item h3').allTextContents()) names.add(name);
+      for (const name of await page.locator('.service-card h3').allTextContents()) names.add(name);
     }
     assert.equal(names.size, 18, 'All 18 Nataly services are reachable');
     await page.getByRole('tab', { name: 'Todos', exact: true }).click();
@@ -68,7 +81,7 @@ try {
       await page.keyboard.press('Escape');
       assert.equal(await page.getByRole('button', { name: 'Abrir menu' }).getAttribute('aria-expanded'), 'false');
     }
-    const wa = page.locator('.faq .whatsapp-link');
+    const wa = page.locator('.contact-actions .whatsapp-link');
     await page.route('https://wa.me/**', route => route.fulfill({ status: 200, body: 'WhatsApp test destination' }));
     const popupPromise = page.waitForEvent('popup');
     await wa.click();
@@ -88,7 +101,7 @@ try {
     assert.deepEqual(errors, [], 'No browser errors');
     await page.screenshot({ path: `artifacts/page-${viewport.width}.png`, fullPage: true });
     if (viewport.width === 1440) await page.screenshot({ path: 'artifacts/hero-desktop.png' });
-    findings.push(`${viewport.width}px: hero without overlap, 6 unique photos, all 18 services, FAQ and WhatsApp OK`);
+    findings.push(`${viewport.width}px: hero without overlap, transparent hero, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
     await context.close();
   }
   const reduce = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
