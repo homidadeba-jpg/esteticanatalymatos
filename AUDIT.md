@@ -16,6 +16,8 @@ Base: implementação e capturas do commit `87f7a1b`, comparadas ao pedido do us
 
 Hero com uma única foto sem fundo no centro, título e textos distribuídos no mesmo espaço, sem colunas de texto/foto. A tipografia agora combina Bodoni Moda e DM Sans. A apresentação da Nataly aparece antes do catálogo, e a seção sobre avaliação explica o atendimento, equilibrando os serviços com informações úteis. Contato, endereço e duas dúvidas completam a página. Os 18 procedimentos continuam disponíveis na opção Todos e nas categorias, cada um com sua miniatura.
 
+O enquadramento do hero foi refinado para centralizar o retrato em todos os tamanhos. No celular, o texto de apoio fica abaixo da foto; o título ocupa uma camada atrás da silhueta, com uma sobreposição discreta junto ao cabelo. O movimento relativo entre essas camadas é curto e reversível, respeitando redução de movimento.
+
 ## Integridade e acessibilidade
 
 - O recorte aprovado foi reutilizado, sem gerar outro rosto ou alterar a identidade.

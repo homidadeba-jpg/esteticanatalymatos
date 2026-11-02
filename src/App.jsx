@@ -70,8 +70,8 @@ export default function App() {
         .from('.hero-line > span', { yPercent: 110, rotation: 2, stagger: .13, duration: 1.3, clearProps: 'all' }, .1)
         .from('.hero-note > *, .hero-actions', { y: 20, opacity: 0, stagger: .1, clearProps: 'all' }, .45)
         .from('.hero-atmosphere', { opacity: 0, duration: 1.6, clearProps: 'all' }, .15);
-      gsap.to('.hero-depth', { y: 28, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-      gsap.to('.hero-title', { y: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+      gsap.to('.hero-depth', { y: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+      gsap.to('.hero-title', { y: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
       gsap.to('.hero-note', { y: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
       gsap.utils.toArray('.reveal').forEach(el => gsap.from(el, { y: 34, ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 70%', scrub: .6 } }));
       gsap.from('.care-image img', { scale: 1.07, ease: 'none', scrollTrigger: { trigger: '.care-image', start: 'top bottom', end: 'top 35%', scrub: .8 } });
@@ -88,7 +88,7 @@ export default function App() {
       <section className="hero" id="inicio"><div className="hero-atmosphere" aria-hidden="true" /><div className="container hero-inner">
         <h1 className="hero-title"><span className="hero-line"><span>Sua beleza.</span></span><span className="hero-line"><span><em>Seu tempo.</em></span></span></h1>
         <div className="hero-visual"><div className="hero-depth"><img className="hero-portrait" src={media.hero} alt="Nataly Matos sorrindo, com blazer branco, em um retrato sem fundo" width="1100" height="1100" fetchPriority="high" /></div></div>
-        <div className="hero-note"><p className="hero-description">Um momento para você.<br />Um cuidado pensado<br />para a sua pele.</p><p className="hero-location">Estética avançada<br /><span>Diadema · SP</span></p></div>
+        <div className="hero-note"><p className="hero-description">Um momento para você. Um cuidado pensado para a sua pele.</p><p className="hero-location">Estética avançada <span>Diadema · SP</span></p></div>
         <div className="hero-actions"><a className="button" href={BOOK} target="_blank" rel="noopener noreferrer">Agendar avaliação <CalendarBlank size={18} weight="light" /></a><a className="text-link" href="#nataly">Conheça a Nataly</a></div>
       </div></section>
       <section className="about section-space" id="nataly"><div className="container about-grid"><div className="about-copy reveal"><h2>Um olhar atento.<br /><em>Um cuidado seu.</em></h2><p>Sou Nataly Matos, esteticista em Diadema. Meu atendimento une tecnologia e acolhimento para cuidar do rosto e do corpo de forma individual.</p><p>Acredito que a estética começa ao entender sua rotina, suas necessidades e como você deseja se sentir.</p><a className="social-link" href={INSTAGRAM} target="_blank" rel="noopener noreferrer"><InstagramLogo size={21} weight="light" /> Acompanhe meu trabalho</a></div><figure className="about-media reveal"><img src="/images/nataly-atendimento.webp" alt="Registro original de Nataly Matos durante um atendimento facial" loading="lazy" width="1600" height="900" /><figcaption>Nataly Matos em atendimento.</figcaption></figure></div></section>
