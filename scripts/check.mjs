@@ -119,6 +119,36 @@ try {
     findings.push(`${viewport.width}px: compact hero, stable alpha layering, face without text overlap, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
     await context.close();
   }
+  // A cold visit must render its first heading with the final fonts already ready.
+  const cold = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await cold.addInitScript(() => {
+    new MutationObserver((_, observer) => {
+      if (document.querySelector('h1')) { window.firstHeadingFonts = document.documentElement.dataset.fonts; observer.disconnect(); }
+    }).observe(document, { childList: true, subtree: true });
+  });
+  await cold.route('**/fonts/*.woff2', async route => { await new Promise(r => setTimeout(r, 800)); await route.continue(); });
+  const coldPage = await cold.newPage();
+  await coldPage.goto('http://127.0.0.1:4189', { waitUntil: 'networkidle' });
+  await coldPage.waitForSelector('h1');
+  assert.equal(await coldPage.evaluate(() => window.firstHeadingFonts), 'ready', 'The first heading uses loaded fonts on a cold visit');
+  await coldPage.waitForTimeout(1500);
+  await coldPage.evaluate(() => window.scrollTo({ top: 260, behavior: 'instant' }));
+  await coldPage.waitForTimeout(300);
+  assert.equal(await coldPage.locator('.hero-visual').evaluate(el => getComputedStyle(el).transform), 'none', 'Hero has no scroll animation');
+  await coldPage.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await coldPage.waitForTimeout(300);
+  assert.equal(await coldPage.locator('.hero-depth').evaluate(el => getComputedStyle(el).transform), 'none', 'Opening does not restart on return');
+  await coldPage.screenshot({ path: 'artifacts/cold-fonts-mobile.png' });
+  await cold.close();
+  const failedFonts = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await failedFonts.route('**/fonts/*.woff2', route => route.abort());
+  const fallbackPage = await failedFonts.newPage();
+  await fallbackPage.goto('http://127.0.0.1:4189', { waitUntil: 'networkidle' });
+  await fallbackPage.waitForSelector('h1');
+  assert.equal(await fallbackPage.evaluate(() => document.documentElement.dataset.fonts), 'fallback', 'Font failure releases a stable fallback');
+  assert((await fallbackPage.locator('h1').evaluate(el => getComputedStyle(el).fontFamily)).includes('Georgia'));
+  await failedFonts.close();
+  findings.push('Cold font loading: no fallback heading; font failure: stable fallback; hero: single entrance, no scroll replay');
   const reduce = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const page = await reduce.newPage();
   await page.goto('http://127.0.0.1:4189', { waitUntil: 'networkidle' });

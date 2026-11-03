@@ -6,3 +6,5 @@ artifacts/
 agenda-data.json
 *.log
 .vercel/
+
+.codex-attachments/

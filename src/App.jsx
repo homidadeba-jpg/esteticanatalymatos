@@ -24,7 +24,15 @@ function Disclosure({ open, id, children, labelledBy }) {
 }
 
 function ServiceCard({ service, open, onToggle }) {
-  return <article className={`service-card${open ? ' is-open' : ''}`}>
+  const card = useRef();
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from(card.current, { y: 16, opacity: .85, duration: .55, ease: 'power2.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: card.current, start: 'top 97%', once: true } });
+    });
+    return () => mm.revert();
+  }, { scope: card });
+  return <article ref={card} className={`service-card${open ? ' is-open' : ''}`}>
     <h3><button className="service-toggle" id={`service-${service.id}`} aria-expanded={open} aria-controls={`detail-${service.id}`} onClick={onToggle}>
       <img src={service.image} alt="" loading="lazy" width="240" height="200" />
       <span>{service.name}</span>{open ? <Minus size={16} /> : <Plus size={16} />}
@@ -71,9 +79,15 @@ export default function App() {
       intro.from('.hero-depth', { y: 18, duration: 1.35, clearProps: 'transform' }, 0)
         .from('.hero-line > span', { x: -14, stagger: .1, clearProps: 'transform' }, .08)
         .from('.hero-note, .hero-actions, .hero-facts', { y: 12, stagger: .08, clearProps: 'transform' }, .2);
-      gsap.to('.hero-visual', { y: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .7 } });
-      gsap.utils.toArray('.reveal').forEach(el => gsap.from(el, { y: 34, ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 70%', scrub: .6 } }));
-      gsap.from('.care-image img', { scale: 1.07, ease: 'none', scrollTrigger: { trigger: '.care-image', start: 'top bottom', end: 'top 35%', scrub: .8 } });
+      // A single opening. Scrolling never restarts or shifts the hero.
+      // The following sections have their own restrained motion language.
+      gsap.from('.about-media img', { clipPath: 'inset(0 8% 0 0)', x: 14, duration: .95, ease: 'power3.out', clearProps: 'clipPath,transform', scrollTrigger: { trigger: '.about-media', start: 'top 88%', once: true } });
+      gsap.from('.about-copy > *', { y: 16, stagger: .08, duration: .7, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: '.about-copy', start: 'top 88%', once: true } });
+      gsap.from('.section-heading h2', { x: -16, duration: .7, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.section-heading', start: 'top 92%', once: true } });
+      gsap.from('.care-image img', { scale: 1.06, ease: 'none', scrollTrigger: { trigger: '.care-image', start: 'top bottom', end: 'top 35%', scrub: .8 } });
+      gsap.from('.care-copy', { x: 16, duration: .8, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.care-copy', start: 'top 88%', once: true } });
+      gsap.from('.contact-copy h2', { y: 18, duration: .7, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.contact-copy', start: 'top 88%', once: true } });
+      gsap.from('.location-card', { y: 12, duration: .65, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: '.location-card', start: 'top 92%', once: true } });
     });
     let active = true;
     document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh(); });

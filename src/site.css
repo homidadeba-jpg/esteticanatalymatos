@@ -1,5 +1,9 @@
+@font-face { font-family: 'Bodoni Moda Variable'; font-style: normal; font-weight: 100 900; font-display: block; src: url('/fonts/bodoni-moda-normal-192ae876.woff2') format('woff2'); }
+@font-face { font-family: 'Bodoni Moda Variable'; font-style: italic; font-weight: 100 900; font-display: block; src: url('/fonts/bodoni-moda-italic-e50a00b8.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans Variable'; font-style: normal; font-weight: 100 900; font-display: block; src: url('/fonts/dm-sans-normal-9fea608a.woff2') format('woff2'); }
 :root {
-  font-family: 'DM Sans Variable', sans-serif;
+  --sans: 'DM Sans Variable', sans-serif;
+  font-family: var(--sans);
   font-synthesis: none;
   color: #35362d;
   background: #faf8f3;
@@ -37,7 +41,7 @@ p { color: var(--muted); font-size: 14px; line-height: 1.85; }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: inline-flex; align-items: center; }
 .brand-name { font-family: var(--serif); font-size: 31px; line-height: 1; letter-spacing: -.02em; }
-.brand-specialty { display: block; font-family: 'DM Sans Variable', sans-serif; font-size: 7px; letter-spacing: 2.5px; color: var(--gold); margin-top: 9px; }
+.brand-specialty { display: block; font-family: var(--sans); font-size: 7px; letter-spacing: 2.5px; color: var(--gold); margin-top: 9px; }
 .navigation { display: flex; align-items: center; gap: 35px; font-size: 12px; }
 .navigation > a:not(.button) { display: inline-flex; align-items: center; min-height: 44px; }
 .navigation > a:hover { color: var(--gold); }
@@ -95,7 +99,7 @@ p { color: var(--muted); font-size: 14px; line-height: 1.85; }
 .contact-actions .text-link { font-size: 11px; }
 .faq-list { margin-top: 32px; }
 .faq-item { border-bottom: 1px solid var(--line); }
-.faq-item h3 button { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; min-height: 54px; text-align: left; padding: 15px 0; border: 0; font-family: 'DM Sans Variable', sans-serif; font-size: 12px; }
+.faq-item h3 button { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; min-height: 54px; text-align: left; padding: 15px 0; border: 0; font-family: var(--sans); font-size: 12px; }
 .faq-item svg { color: var(--gold); flex-shrink: 0; }
 .faq-item .disclosure p { padding: 0 20px 21px 0; font-size: 12px; line-height: 1.8; }
 .location-card { padding: 30px 35px; border: 1px solid var(--line); }
@@ -114,7 +118,7 @@ p { color: var(--muted); font-size: 14px; line-height: 1.85; }
 .whatsapp-link { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
 .link-content { display: inline-flex; align-items: center; gap: 5px; }
 .is-hidden { opacity: 0; }
-.opening-feedback { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; gap: 6px; font-family: 'DM Sans Variable', sans-serif; font-size: 10px; white-space: nowrap; }
+.opening-feedback { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; gap: 6px; font-family: var(--sans); font-size: 10px; white-space: nowrap; }
 .spinner { width: 11px; height: 11px; border: 1px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
 .sr-only, .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
 .skip-link:focus { position: fixed; left: 10px; top: 10px; padding: 15px; z-index: 100; background: var(--paper); }
@@ -226,7 +230,7 @@ p { color: var(--muted); font-size: 14px; line-height: 1.85; }
 .care-copy h2 { font-size: 44px; line-height: 1.13; }
 .care-copy > p { font-size: 14px; line-height: 1.9; max-width: 470px; margin-top: 25px; }
 .care-topics { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 28px; padding-top: 24px; border-top: 1px solid #d1cabc; }
-.care-topics h3 { font-family: 'DM Sans Variable', sans-serif; font-size: 12px; font-weight: 600; }
+.care-topics h3 { font-family: var(--sans); font-size: 12px; font-weight: 600; }
 .care-topics p { font-size: 12px; line-height: 1.8; margin-top: 10px; }
 .care-copy > .text-link { margin-top: 22px; font-size: 11px; }
 @media (min-width: 768px) and (max-width: 1100px) {
@@ -249,3 +253,5 @@ p { color: var(--muted); font-size: 14px; line-height: 1.85; }
  .contact-copy h2 { font-size: 39px; line-height: 1.13; }
  .service-card h3 { font-size: 18px; }
 }
+
+html.fonts-fallback { --sans: Arial, sans-serif; --serif: Georgia, serif; }

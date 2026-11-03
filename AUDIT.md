@@ -30,3 +30,8 @@ O hero concentra retrato, proposta, avaliação e agendamento numa abertura mais
 ## Limites
 
 As fotografias da agenda incluem registros de procedimentos, comparativos e artes fornecidas pela profissional. As miniaturas não representam promessa de resultado. Testes de viewport e navegador não equivalem a inspeção em aparelho físico. Esta auditoria não declara certificação de acessibilidade nem medições de Core Web Vitals em campo.
+
+
+## Carregamento e movimento
+
+As variantes latinas de Bodoni Moda e DM Sans são servidas localmente e pré-carregadas. A montagem aguarda as três fontes usadas na página; em falha ou espera superior a 3,5 segundos, mantém uma alternativa estável durante a visita. A abertura do hero executa uma vez, sem controlador de rolagem. Apresentação, catálogo e contato têm entradas próprias que não reiniciam ao voltar; a foto da seção de avaliação mantém apenas o zoom contínuo e reversível.

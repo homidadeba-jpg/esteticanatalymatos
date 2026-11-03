@@ -4,3 +4,5 @@ artifacts
 node_modules
 dist
 assets/reference
+
+.codex-attachments/
