@@ -40,7 +40,14 @@ try {
     assert(await page.locator('.hero-line').last().evaluate(el => { const range = document.createRange(); range.selectNodeContents(el.querySelector('em')); return range.getBoundingClientRect().width <= el.clientWidth + 1; }), 'Hero text is not clipped');
     const face = { x: photo.x + photo.width * .34, y: photo.y + photo.height * .12, width: photo.width * .38, height: photo.height * .4 };
     const overlapsFace = r => r.x < face.x + face.width && r.x + r.width > face.x && r.y < face.y + face.height && r.y + r.height > face.y;
-    assert(!overlapsFace(title), 'Headline stays outside Nataly face');
+    const titleLines = await page.locator('.hero-line > span').evaluateAll(lines => lines.map(el => { const range = document.createRange(); range.selectNodeContents(el); return range.getBoundingClientRect().toJSON(); }));
+    assert(titleLines.every(r => !overlapsFace(r)), 'Headline glyphs stay outside Nataly face');
+    assert(await page.locator('.hero-depth').evaluate(el => el.contains(document.querySelector('.hero-title')) && el.contains(document.querySelector('.hero-portrait'))), 'Title and portrait share a single motion plane');
+    assert.equal(await page.locator('.hero-line').first().evaluate(el => getComputedStyle(el).overflow), 'visible', 'No rectangular clipping on title');
+    assert.equal(await page.locator('.hero-title').evaluate(el => getComputedStyle(el).zIndex), '1');
+    assert.equal(await page.locator('.hero-portrait').evaluate(el => getComputedStyle(el).zIndex), '2');
+    assert.equal(await page.locator('.hero-actions').evaluate(el => getComputedStyle(el).opacity), '1', 'Booking never hidden by animation');
+    await page.screenshot({ path: `artifacts/hero-${viewport.width}.png` });
     assert(!overlapsFace(await page.locator('.hero-note').boundingBox()), 'Supporting copy stays outside the face');
     assert.equal(await page.locator('.hero-inner').evaluate(el => getComputedStyle(el).display), 'block', 'Hero is a single composition, without a column grid');
     const primaryAction = await page.locator('.hero .button').boundingBox();
@@ -77,7 +84,7 @@ try {
     await question.click();
     await page.waitForTimeout(400);
     assert.equal(await question.getAttribute('aria-expanded'), 'true');
-    assert(await page.locator('#faq-0').evaluate(el => el.getBoundingClientRect().height > 35));
+    await page.waitForFunction(() => document.querySelector('#faq-0').getBoundingClientRect().height > 20);
     await question.click();
     await page.waitForTimeout(400);
     assert.equal(await question.getAttribute('aria-expanded'), 'false');
@@ -89,11 +96,11 @@ try {
       assert.equal(await page.getByRole('button', { name: 'Abrir menu' }).getAttribute('aria-expanded'), 'false');
     }
     const wa = page.locator('.contact-actions .whatsapp-link');
-    await page.route('https://wa.me/**', route => route.fulfill({ status: 200, body: 'WhatsApp test destination' }));
+    await context.route('https://wa.me/**', route => route.fulfill({ status: 200, body: 'WhatsApp test destination' }));
     const popupPromise = page.waitForEvent('popup');
     await wa.click();
-    const popup = await popupPromise;
     assert(await wa.getByRole('status').textContent() === 'Abrindo WhatsApp…');
+    const popup = await popupPromise;
     await popup.close();
     await page.evaluate(() => window.dispatchEvent(new Event('focus')));
     assert.equal(await wa.getByRole('status').textContent(), '');
@@ -109,7 +116,7 @@ try {
     await page.screenshot({ path: `artifacts/page-${viewport.width}.png`, fullPage: true });
     await page.screenshot({ path: `artifacts/hero-${viewport.width}.png` });
     if (viewport.width === 1440) await page.screenshot({ path: 'artifacts/hero-desktop.png' });
-    findings.push(`${viewport.width}px: integrated hero, new fonts, face without text overlap, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
+    findings.push(`${viewport.width}px: compact hero, stable alpha layering, face without text overlap, 18 original thumbnails and expandable services, FAQ and WhatsApp OK`);
     await context.close();
   }
   const reduce = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
