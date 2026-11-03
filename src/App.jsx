@@ -28,7 +28,7 @@ function ServiceCard({ service, open, onToggle }) {
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.from(card.current, { y: 16, opacity: .85, duration: .55, ease: 'power2.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: card.current, start: 'top 97%', once: true } });
+      gsap.from(card.current.querySelector('.service-toggle'), { y: 10, ease: 'none', scrollTrigger: { trigger: card.current, start: 'top 97%', end: 'top 72%', scrub: .45, invalidateOnRefresh: true } });
     });
     return () => mm.revert();
   }, { scope: card });
@@ -79,15 +79,17 @@ export default function App() {
       intro.from('.hero-depth', { y: 18, duration: 1.35, clearProps: 'transform' }, 0)
         .from('.hero-line > span', { x: -14, stagger: .1, clearProps: 'transform' }, .08)
         .from('.hero-note, .hero-actions, .hero-facts', { y: 12, stagger: .08, clearProps: 'transform' }, .2);
-      // A single opening. Scrolling never restarts or shifts the hero.
-      // The following sections have their own restrained motion language.
-      gsap.from('.about-media img', { clipPath: 'inset(0 8% 0 0)', x: 14, duration: .95, ease: 'power3.out', clearProps: 'clipPath,transform', scrollTrigger: { trigger: '.about-media', start: 'top 88%', once: true } });
-      gsap.from('.about-copy > *', { y: 16, stagger: .08, duration: .7, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: '.about-copy', start: 'top 88%', once: true } });
-      gsap.from('.section-heading h2', { x: -16, duration: .7, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.section-heading', start: 'top 92%', once: true } });
-      gsap.from('.care-image img', { scale: 1.06, ease: 'none', scrollTrigger: { trigger: '.care-image', start: 'top bottom', end: 'top 35%', scrub: .8 } });
-      gsap.from('.care-copy', { x: 16, duration: .8, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.care-copy', start: 'top 88%', once: true } });
-      gsap.from('.contact-copy h2', { y: 18, duration: .7, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '.contact-copy', start: 'top 88%', once: true } });
-      gsap.from('.location-card', { y: 12, duration: .65, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: '.location-card', start: 'top 92%', once: true } });
+      // Only the opening is time-based. Every scroll animation follows the
+      // same reversible playhead in both directions, with no opacity resets.
+      // Stable outer anchors never share their child's animated transform.
+      const scroll = (trigger, end = 'top 68%') => ({ trigger, start: 'top 96%', end, scrub: .45, invalidateOnRefresh: true });
+      gsap.from('.about-media img', { clipPath: 'inset(0 8% 0 0)', x: 14, ease: 'none', scrollTrigger: scroll('.about-media') });
+      gsap.from('.about-copy > *', { y: 16, stagger: .08, ease: 'none', scrollTrigger: scroll('.about-copy') });
+      gsap.from('.section-heading h2', { x: -16, ease: 'none', scrollTrigger: scroll('.section-heading', 'top 74%') });
+      gsap.from('.care-image img', { scale: 1.06, ease: 'none', scrollTrigger: { trigger: '.care-image', start: 'top bottom', end: 'top 35%', scrub: .45, invalidateOnRefresh: true } });
+      gsap.from('.care-copy', { x: 16, ease: 'none', scrollTrigger: scroll('.care-grid') });
+      gsap.from('.contact-copy h2', { y: 18, ease: 'none', scrollTrigger: scroll('.contact-copy') });
+      gsap.from('.location-card > *', { y: 12, stagger: .06, ease: 'none', scrollTrigger: scroll('.location-card', 'top 76%') });
     });
     let active = true;
     document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh(); });

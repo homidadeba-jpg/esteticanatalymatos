@@ -138,6 +138,28 @@ try {
   await coldPage.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await coldPage.waitForTimeout(300);
   assert.equal(await coldPage.locator('.hero-depth').evaluate(el => getComputedStyle(el).transform), 'none', 'Opening does not restart on return');
+  const reversible = [
+    { anchor: '.about-media', target: '.about-media img', axis: 'm41', start: .96, end: .68 },
+    { anchor: '.service-card', target: '.service-toggle', axis: 'm42', start: .97, end: .72 },
+    { anchor: '.care-image', target: '.care-image img', axis: 'm11', start: 1, end: .35 },
+    { anchor: '.contact-copy', target: '.contact-copy h2', axis: 'm42', start: .96, end: .68 },
+  ];
+  for (const motion of reversible) {
+    const top = await coldPage.locator(motion.anchor).first().evaluate(el => el.getBoundingClientRect().top + scrollY);
+    const positions = [];
+    for (const progress of [.25, .8, .25]) {
+      await coldPage.evaluate(({ top, start, end, progress }) => window.scrollTo({ top: top - innerHeight * start + innerHeight * (start - end) * progress, behavior: 'instant' }), { top, ...motion, progress });
+      await coldPage.waitForTimeout(850);
+      const state = await coldPage.locator(motion.target).first().evaluate((el, axis) => { const s = getComputedStyle(el); return { value: new DOMMatrixReadOnly(s.transform)[axis], opacity: Number(s.opacity) }; }, motion.axis);
+      assert.equal(state.opacity, 1, 'Scroll motion never fades content out');
+      positions.push(state.value);
+    }
+    assert(positions[0] > positions[1], `${motion.target} follows downward scrolling`);
+    assert(Math.abs(positions[0] - positions[2]) < .15, `${motion.target} retraces its position on upward scrolling`);
+  }
+  await coldPage.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await coldPage.waitForTimeout(600);
+  findings.push('Bidirectional scroll: photo, service, zoom and contact retrace the same positions; opacity stays at 1');
   await coldPage.screenshot({ path: 'artifacts/cold-fonts-mobile.png' });
   await cold.close();
   const failedFonts = await browser.newContext({ viewport: { width: 390, height: 844 } });
